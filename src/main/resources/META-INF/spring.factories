@@ -1,20 +1,20 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.neusoft.mybatis.expand.config.DateConfig,\
-  com.neusoft.mybatis.expand.config.JacksonConfigurationConfig,\
-  com.neusoft.mybatis.expand.exception.GlobalExceptionHandler,\
-  com.neusoft.mybatis.expand.idempotent.ExtApiAopIdempotent,\
-  com.neusoft.mybatis.expand.mybatis.DruidUiConfiguration,\
-  com.neusoft.mybatis.expand.mybatis.MyBatisConfig,\
-  com.neusoft.mybatis.expand.redis.CacheConfiguration,\
-  com.neusoft.mybatis.expand.tenant.TenantConfiguration,\
-  com.neusoft.mybatis.expand.tenant.TenantContextHolderFilter,\
-  com.neusoft.mybatis.expand.utils.feign.FeignConfiguration,\
-  com.neusoft.mybatis.expand.security.JwtAccessDeniedHandler,\
-  com.neusoft.mybatis.expand.security.JwtAuthenticationEntryPoint,\
-  com.neusoft.mybatis.expand.security.UserModelDetailsService,\
-  com.neusoft.mybatis.expand.jwt.TokenProvider,\
-  com.neusoft.mybatis.expand.config.CorsConfig,\
-  com.neusoft.mybatis.expand.config.WebSecurityConfig,\
-  com.neusoft.mybatis.expand.config.PasswordEncoderConfig
+  com.theodore.config.DateConfig,\
+  com.theodore.config.JacksonConfigurationConfig,\
+  com.theodore.exception.GlobalExceptionHandler,\
+  com.theodore.idempotent.ExtApiAopIdempotent,\
+  com.theodore.mybatis.DruidUiConfiguration,\
+  com.theodore.mybatis.MyBatisConfig,\
+  com.theodore.redis.CacheConfiguration,\
+  com.theodore.tenant.TenantConfiguration,\
+  com.theodore.tenant.TenantContextHolderFilter,\
+  com.theodore.utils.feign.FeignConfiguration,\
+  com.theodore.security.JwtAccessDeniedHandler,\
+  com.theodore.security.JwtAuthenticationEntryPoint,\
+  com.theodore.security.UserModelDetailsService,\
+  com.theodore.jwt.TokenProvider,\
+  com.theodore.config.CorsConfig,\
+  com.theodore.config.WebSecurityConfig,\
+  com.theodore.config.PasswordEncoderConfig
 
 
