@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mybatis.expand.dao.SystemRoleMapper">
+    <!-- 结果集 -->
+    <resultMap type="com.theodore.entity.SystemRole" id="BaseResultMap">
+        <result property="id" column="ID" jdbcType="VARCHAR"/>
+        <result property="name" column="NAME" jdbcType="VARCHAR"/>
+        <result property="hospitalCode" column="HOSPITAL_CODE" jdbcType="VARCHAR"/>
+        <result property="enabled" column="ENABLED" jdbcType="INTEGER"/>
+        <result property="createMan" column="CREATE_MAN" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="updateMan" column="UPDATE_MAN" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        ID, NAME, HOSPITAL_CODE, ENABLED, CREATE_MAN, CREATE_TIME, UPDATE_MAN, UPDATE_TIME    </sql>
+
+    <sql id="Base_Column_List_Role">
+        r.ID, r.NAME, r.HOSPITAL_CODE, r.ENABLED, r.CREATE_MAN, r.CREATE_TIME, r.UPDATE_MAN, r.UPDATE_TIME    </sql>
+
+    <select id="selectByStaffId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List_Role"/>
+        from system_staff_role s
+        left join system_role r
+        on s.role_id = r.id
+        where
+        s.staff_id = #{staffId,jdbcType=VARCHAR}
+    </select>
+</mapper>

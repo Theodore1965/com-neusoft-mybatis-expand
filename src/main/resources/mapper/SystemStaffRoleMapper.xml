@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mybatis.expand.dao.SystemStaffRoleMapper">
+    <!-- 结果集 -->
+    <resultMap type="com.theodore.entity.SystemStaffRole" id="BaseResultMap">
+        <result property="id" column="ID" jdbcType="INTEGER"/>
+        <result property="staffId" column="STAFF_ID" jdbcType="VARCHAR"/>
+        <result property="roleId" column="ROLE_ID" jdbcType="INTEGER"/>
+        <result property="hospitalCode" column="HOSPITAL_CODE" jdbcType="VARCHAR"/>
+        <result property="createMan" column="CREATE_MAN" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="updateMan" column="UPDATE_MAN" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        ID, STAFF_ID, ROLE_ID, HOSPITAL_CODE, CREATE_MAN, CREATE_TIME, UPDATE_MAN, UPDATE_TIME    </sql>
+
+</mapper>

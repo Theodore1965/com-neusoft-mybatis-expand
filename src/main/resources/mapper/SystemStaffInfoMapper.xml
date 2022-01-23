@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mybatis.expand.dao.SystemStaffInfoMapper">
+    <!-- 结果集 -->
+    <resultMap type="com.theodore.entity.SystemStaffInfo" id="BaseResultMap">
+        <result property="staffId" column="STAFF_ID" jdbcType="VARCHAR"/>
+        <result property="staffName" column="STAFF_NAME" jdbcType="VARCHAR"/>
+        <result property="staffNickname" column="STAFF_NICKNAME" jdbcType="VARCHAR"/>
+        <result property="staffPassword" column="STAFF_PASSWORD" jdbcType="VARCHAR"/>
+        <result property="roleId" column="ROLE_ID" jdbcType="VARCHAR"/>
+        <result property="roleName" column="ROLE_NAME" jdbcType="VARCHAR"/>
+        <result property="deptId" column="DEPT_ID" jdbcType="VARCHAR"/>
+        <result property="worktype" column="WORKTYPE" jdbcType="VARCHAR"/>
+        <result property="jobtype" column="JOBTYPE" jdbcType="VARCHAR"/>
+        <result property="enabled" column="ENABLED" jdbcType="INTEGER"/>
+        <result property="pinyin" column="PINYIN" jdbcType="VARCHAR"/>
+        <result property="sortNo" column="SORT_NO" jdbcType="INTEGER"/>
+        <result property="createMan" column="CREATE_MAN" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="updateMan" column="UPDATE_MAN" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="UPDATE_TIME" jdbcType="TIMESTAMP"/>
+        <result property="diplomaType" column="DIPLOMA_TYPE" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <!-- 基本字段 -->
+    <sql id="Base_Column_List">
+        STAFF_ID, STAFF_NAME, STAFF_NICKNAME, STAFF_PASSWORD, ROLE_ID, ROLE_NAME, DEPT_ID, WORKTYPE, JOBTYPE, ENABLED, PINYIN, SORT_NO, CREATE_MAN, CREATE_TIME, UPDATE_MAN, UPDATE_TIME, DIPLOMA_TYPE    </sql>
+    <select id="selectByStaffIdAndEnabled" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from system_staff_info
+        where
+        staff_id = #{staffId,jdbcType=VARCHAR}
+        AND enabled = #{enabled,jdbcType=NUMERIC}
+    </select>
+</mapper>

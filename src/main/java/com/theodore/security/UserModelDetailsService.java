@@ -1,13 +1,23 @@
 package com.theodore.security;
 
+import com.theodore.dao.SystemRoleMapper;
+import com.theodore.dao.SystemStaffInfoMapper;
+import com.theodore.entity.SystemStaffInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Authenticate a user from the database.
@@ -17,41 +27,32 @@ public class UserModelDetailsService implements UserDetailsService {
 
    private final Logger log = LoggerFactory.getLogger(UserModelDetailsService.class);
 
-//   private UserRepository userRepository;
-//
-//   public UserModelDetailsService(UserRepository userRepository) {
-//      this.userRepository = userRepository;
-//   }
+   @Resource
+   private SystemStaffInfoMapper SystemStaffInfoMapper;
+
+   @Resource
+   private SystemRoleMapper systemRoleMapper;
 
    @Override
    @Transactional
    public UserDetails loadUserByUsername(final String login) {
       log.debug("Authenticating user '{}'", login);
 
-//      if (new EmailValidator().isValid(login, null)) {
-//         return userRepository.findOneWithAuthoritiesByEmailIgnoreCase(login)
-//            .map(user -> createSpringSecurityUser(login, user))
-//            .orElseThrow(() -> new UsernameNotFoundException("User with email " + login + " was not found in the database"));
-//      }
-//
-//      String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-//      return userRepository.findOneWithAuthoritiesByUsername(lowercaseLogin)
-//         .map(user -> createSpringSecurityUser(lowercaseLogin, user))
-//         .orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
-
-      return createSpringSecurityUser();
+      String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
+      return Optional.ofNullable(SystemStaffInfoMapper.selectByStaffIdAndEnabled(lowercaseLogin, true))
+              .map(user -> createSpringSecurityUser(lowercaseLogin, user))
+              .orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
    }
 
-   private org.springframework.security.core.userdetails.User createSpringSecurityUser(/*String lowercaseLogin, User user*/) {
-//      if (!user.isActivated()) {
-//         throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
-//      }
-//      List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
-//         .map(authority -> new SimpleGrantedAuthority(authority.getName()))
-//         .collect(Collectors.toList());
-//      return new org.springframework.security.core.userdetails.User(user.getUsername(),
-//         user.getPassword(),
-//         grantedAuthorities);
-      return new org.springframework.security.core.userdetails.User("test","$2a$10$/PHO1UN9TpsVns.H66hXvOD6B1OVEVpnuR9fRmYmydMtD3/ED6Q46", Collections.emptyList());
+   private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, SystemStaffInfo user) {
+      if (!user.getEnabled()) {
+         throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
+      }
+      List<GrantedAuthority> grantedAuthorities = systemRoleMapper.selectByStaffId(user.getStaffId()).stream()
+              .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+              .collect(Collectors.toList());
+      return new org.springframework.security.core.userdetails.User(user.getStaffId(),
+              user.getStaffPassword(),
+              grantedAuthorities);
    }
 }
